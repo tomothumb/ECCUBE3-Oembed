@@ -1,0 +1,3 @@
+# Product List
+eccube.event.render.product_detail.before:
+  - [onRenderOembedProductDetailBefore, NORMAL]

@@ -1,0 +1,9 @@
+name: 外部サイト埋込みプラグイン
+code: Oembed
+version: 1.0.0
+evnet: OembedEvent
+#service:
+#    - OembedServiceProvider
+
+# イベント
+event: OembedEvent
