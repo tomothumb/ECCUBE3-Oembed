@@ -37,14 +37,15 @@ class OembedEvent
         $response = $event->getResponse();
 
 
-        $parts = $this->app->renderView('Oembed/Resource/template/admin/embed-modal.twig', array(
-        ));
+        $parts_btn = $this->app->renderView('Oembed/Resource/template/admin/embed-button.twig', array());
+        $parts_modal = $this->app->renderView('Oembed/Resource/template/admin/embed-modal.twig', array());
 
-//        $crawler = new Crawler($response->getContent());
         $crawler = new HtmlPageCrawler($response->getContent());
 
         $crawler->filter('#admin_product_free_area')
-            ->before($parts);
+            ->before($parts_btn);
+        $crawler->filter('body')
+            ->append($parts_modal);
 
 //        $html = $this->getHtml($crawler);
         $html = $crawler->html();
@@ -135,6 +136,10 @@ class OembedEvent
      * @throws \Embed\Exceptions\InvalidUrlException
      */
     private function get_embed($url){
+        $url = preg_replace(
+                "/^(http|https):\/\/www.instagram.com(.*)/u",
+                "$1://instagram.com$2",
+                $url );
 
         $obj = \Embed\Embed::create($url);
         if($obj->code){
