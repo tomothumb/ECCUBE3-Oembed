@@ -1,4 +1,4 @@
-Oembed plugin for ECCUBE3.x
+外部サイト埋込みプラグイン(Oembed plugin) for ECCUBE3.x
 
 * Youtube support.
 * Instagram support.
