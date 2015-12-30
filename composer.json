@@ -1,5 +1,6 @@
 {
     "require": {
-        "embed/embed": "^2.6"
+        "embed/embed": "^2.6",
+        "wa72/htmlpagedom": "^1.2"
     }
 }

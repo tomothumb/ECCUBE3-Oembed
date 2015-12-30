@@ -10,6 +10,7 @@ use Symfony\Component\Filesystem\Filesystem;
 
 require_once(__DIR__."/vendor/autoload.php");
 use Embed\Embed;
+use Wa72\HtmlPageDom\HtmlPageCrawler;
 
 
 class OembedEvent
@@ -23,6 +24,37 @@ class OembedEvent
         $this->app = $app;
 
     }
+
+
+    /**
+     *
+     *
+     * @param FilterResponseEvent $event
+     */
+    public function onRenderOembedAdminProductDetailEditBefore(FilterResponseEvent $event)
+    {
+        $request = $event->getRequest();
+        $response = $event->getResponse();
+
+
+        $parts = $this->app->renderView('Oembed/Resource/template/admin/embed-modal.twig', array(
+        ));
+
+//        $crawler = new Crawler($response->getContent());
+        $crawler = new HtmlPageCrawler($response->getContent());
+
+        $crawler->filter('#admin_product_free_area')
+            ->before($parts);
+
+//        $html = $this->getHtml($crawler);
+        $html = $crawler->html();
+        $html = html_entity_decode($html, ENT_NOQUOTES, 'UTF-8');
+        $response->setContent($html);
+
+        $event->setResponse($response);
+    }
+//        \Doctrine\Common\Util\Debug::dump($p->html());
+
 
     /**
      *
